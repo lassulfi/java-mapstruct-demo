@@ -29,7 +29,7 @@ public class DefaultCreateCustomerUseCase implements CreateCustomerUseCase {
 
         final var actualCustomer = this.repository.create(aCustomer);
 
-        return customerMapper.toOutput(actualCustomer);
+        return customerMapper.toCreateCustomerOutput(actualCustomer);
     }
 
 }

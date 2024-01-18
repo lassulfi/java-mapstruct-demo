@@ -8,9 +8,11 @@ import org.mapstruct.factory.Mappers;
 import com.sensedia.mapstructdemo.domain.customer.Customer;
 import com.sensedia.mapstructdemo.infrastructure.api.presenters.customer.CreateCustomer;
 import com.sensedia.mapstructdemo.infrastructure.api.presenters.customer.CustomerCreated;
+import com.sensedia.mapstructdemo.infrastructure.api.presenters.customer.CustomerRetrieved;
 import com.sensedia.mapstructdemo.infrastructure.h2_database.customer.CustomerModel;
 import com.sensedia.mapstructdemo.usecase.customer.create.InputCreateCustomerDTO;
 import com.sensedia.mapstructdemo.usecase.customer.create.OutputCreateCustomerDTO;
+import com.sensedia.mapstructdemo.usecase.customer.retrieve.get.OutputGetCustomerDTO;
 
 @Mapper
 public interface CustomerMapper {
@@ -33,9 +35,13 @@ public interface CustomerMapper {
     @Mapping(source = "city", target = "address.city")
     Customer toDomain(final CustomerModel aModel);
     
-    OutputCreateCustomerDTO toOutput(final Customer aCustomer);
+    OutputCreateCustomerDTO toCreateCustomerOutput(final Customer aCustomer);
 
     InputCreateCustomerDTO toInput(final CreateCustomer anIn);
 
     CustomerCreated toPresenter(final OutputCreateCustomerDTO anOutput);
+
+    OutputGetCustomerDTO toGetCustomerOutput(final Customer aCustomer);
+
+    CustomerRetrieved toCustomerRetrieved(final OutputGetCustomerDTO anOutput);
 }

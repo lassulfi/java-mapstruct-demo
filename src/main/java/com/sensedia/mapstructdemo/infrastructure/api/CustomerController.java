@@ -9,10 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sensedia.mapstructdemo.infrastructure.api.presenters.customer.CreateCustomer;
 import com.sensedia.mapstructdemo.infrastructure.api.presenters.customer.CustomerCreated;
+import com.sensedia.mapstructdemo.infrastructure.api.presenters.customer.CustomerRetrieved;
 import com.sensedia.mapstructdemo.infrastructure.mappers.customer.CustomerMapper;
 import com.sensedia.mapstructdemo.usecase.customer.create.CreateCustomerUseCase;
+import com.sensedia.mapstructdemo.usecase.customer.retrieve.get.GetCustomerUseCase;
+import com.sensedia.mapstructdemo.usecase.customer.retrieve.get.InputGetCustomerDTO;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/customers")
@@ -22,6 +28,8 @@ public class CustomerController {
     private static final CustomerMapper CUSTOMER_MAPPER = CustomerMapper.INSTANCE;
 
     private final CreateCustomerUseCase createCustomerUseCase;
+
+    private final GetCustomerUseCase getCustomerUseCase;
 
     @PostMapping
     ResponseEntity<CustomerCreated> createCustomer(@RequestBody final CreateCustomer aCustomer) {
@@ -33,4 +41,11 @@ public class CustomerController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(customerToPresent);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerRetrieved> findById(@RequestParam final String anId) {
+        final var actualCustomer = this.getCustomerUseCase.execute(InputGetCustomerDTO.from(anId));
+        return ResponseEntity.ok(CUSTOMER_MAPPER.toCustomerRetrieved(actualCustomer));
+    }
+    
 }

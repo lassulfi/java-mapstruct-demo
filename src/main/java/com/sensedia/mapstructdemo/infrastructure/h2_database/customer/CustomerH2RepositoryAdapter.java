@@ -17,7 +17,7 @@ public class CustomerH2RepositoryAdapter implements CustomerRepository {
     private static final CustomerMapper CUSTOMER_MAPPER = CustomerMapper.INSTANCE;
 
     private final CustomerH2Repository repository;
-    
+
     @Override
     public Customer create(Customer aCustomer) {
         final var aModel = CUSTOMER_MAPPER.toModel(aCustomer);
@@ -29,8 +29,9 @@ public class CustomerH2RepositoryAdapter implements CustomerRepository {
 
     @Override
     public Customer findById(String anId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        final var actualModel = this.repository.findById(Objects.requireNonNull(anId));
+
+        return actualModel.map(CUSTOMER_MAPPER::toDomain).orElse(null);
     }
 
     @Override
@@ -38,5 +39,5 @@ public class CustomerH2RepositoryAdapter implements CustomerRepository {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
-    
+
 }
