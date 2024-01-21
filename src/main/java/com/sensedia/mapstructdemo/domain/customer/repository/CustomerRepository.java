@@ -1,5 +1,7 @@
 package com.sensedia.mapstructdemo.domain.customer.repository;
 
+import java.util.List;
+
 import com.sensedia.mapstructdemo.domain.customer.Customer;
 
 public interface CustomerRepository {
@@ -7,5 +9,5 @@ public interface CustomerRepository {
 
     Customer findById(final String anId);
 
-    Customer findAll();
+    List<Customer> findAll();
 }

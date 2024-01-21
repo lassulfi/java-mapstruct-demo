@@ -13,6 +13,7 @@ import com.sensedia.mapstructdemo.infrastructure.h2_database.customer.CustomerMo
 import com.sensedia.mapstructdemo.usecase.customer.create.InputCreateCustomerDTO;
 import com.sensedia.mapstructdemo.usecase.customer.create.OutputCreateCustomerDTO;
 import com.sensedia.mapstructdemo.usecase.customer.retrieve.get.OutputGetCustomerDTO;
+import com.sensedia.mapstructdemo.usecase.customer.retrieve.list.OutputListCustomerDTO;
 
 @Mapper
 public interface CustomerMapper {
@@ -44,4 +45,8 @@ public interface CustomerMapper {
     OutputGetCustomerDTO toGetCustomerOutput(final Customer aCustomer);
 
     CustomerRetrieved toCustomerRetrieved(final OutputGetCustomerDTO anOutput);
+
+    CustomerRetrieved toCustomerRetrieved(final OutputListCustomerDTO anOutput);
+
+    OutputListCustomerDTO toListCustomerOutput(final Customer aCustomer);
 }

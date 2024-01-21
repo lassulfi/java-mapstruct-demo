@@ -1,0 +1,20 @@
+POST http://localhost:8080/customers HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "João da Silva",
+    "address": {
+        "street": "Rua Um",
+        "number": 100,
+        "zip_code": 13900100,
+        "city": "São Paulo"
+    }
+}
+
+###
+
+GET http://localhost:8080/customers/d078537c-4c12-4363-809c-887aa416e3ce HTTP/1.1
+
+###
+
+GET http://localhost:8080/customers

@@ -1,5 +1,6 @@
 package com.sensedia.mapstructdemo.infrastructure.h2_database.customer;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.stereotype.Component;
@@ -35,9 +36,10 @@ public class CustomerH2RepositoryAdapter implements CustomerRepository {
     }
 
     @Override
-    public Customer findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+    public List<Customer> findAll() {
+        final var actualModels = this.repository.findAll();
+
+        return actualModels.stream().map(CUSTOMER_MAPPER::toDomain).toList();
     }
 
 }
